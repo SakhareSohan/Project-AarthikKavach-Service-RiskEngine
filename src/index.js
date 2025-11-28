@@ -1,7 +1,8 @@
 // src/index.js
 const express = require("express");
 const morgan = require('morgan');
-const { ServerConfig, Logger } = require("./config");
+const { ServerConfig, Logger, Database } = require("./config");
+
 const apiRoutes = require("./routes");
 const { correlationMiddleware, errorMiddleware } = require("./middlewares");
 
@@ -17,7 +18,8 @@ app.use("/api", apiRoutes); // Request wuill pass from here to controller
 app.use(errorMiddleware.appErrorHandler);
 app.use(errorMiddleware.genericErrorHandler);
 
-app.listen(ServerConfig.PORT, () => {
+app.listen(ServerConfig.PORT, async () => {
+  await Database.connect();
   Logger.info(`Server is running on http://localhost:${ServerConfig.PORT}`);
   Logger.info(`Press Ctrl+C to stop the server.`);
 });
