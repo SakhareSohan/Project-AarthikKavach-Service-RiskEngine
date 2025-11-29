@@ -13,7 +13,7 @@ class Postgres {
       // --- Recommended pool settings for resilience ---
       max: 20, // Max number of clients in the pool
       idleTimeoutMillis: 30000, // How long a client is allowed to remain idle before being closed
-      connectionTimeoutMillis: 2000, // How long to wait for a connection to be established
+      connectionTimeoutMillis: 10000, // How long to wait for a connection to be established
     });
   }
 
